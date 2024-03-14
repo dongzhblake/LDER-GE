@@ -1,16 +1,17 @@
-# LDER
-We design a method for heritability estimation, namely LD Eigenvalue Regression (LDER), which extends the LDSC method and provides more accurate estimates of heritability and confounding inflation.
+# LDER-GE
+We propose a statistical method to estimate the phenotypic variance explained by Gene-Envieonment interactions. The method is called  Linkage-Disequilibrium Eigenvalue Regression for Gene-Environment interactions (LDER-GE). LDER-GE extends existing LDSC-based methods to incorporate full LD information and enhances statistical efficiency of estimation.
 
 :open_book: Citation:
 
-Song, S., Jiang, W., Zhang, Y., Hou, L., & Zhao, H. (2022). [Leveraging LD eigenvalue regression to improve the estimation of SNP heritability and confounding inflation](https://www.sciencedirect.com/science/article/pii/S0002929722001094). The American Journal of Human Genetics, 109(5), 802-811.
+Dong, Z., Jiang, W., Li, H., Dewan, A. T., & Zhao, H. (2023). LDER-GE estimates phenotypic variance component of gene-environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information. bioRxiv, 2023-11.
 
-2023 May 1 updates: Optimization of LD computation 
+Acknowledgement: This LDER-GE package is modified based on the original LDER package. If you are doing narrow-sense heritability study, please use and refer to https://github.com/shuangsong0110/LDER). We modified function calling procedure and adjusted the algorithm specifically for GE interaction analysis. For LD preparation, we largely maintain the original LDER framework.
+We thank Shuang Song for sharing the original LDER code.
 
 ## Table of contents
-* [Install](#install)
+* [Install](#hammer-install)
 * [LD prepared](#scroll-ld-prepared)
-* [Estimation of heritability and inflation factor](#rocket-estimation-of-heritability-and-inflation-factor)
+* [Estimation of GE proportion](#rocket-estimation-of-ge-proportion)
 * [Output](#bulb-output)
 * [A Simplified Pipeline](#key-a-simplified-pipeline)
 
@@ -19,9 +20,9 @@ R >= 3.0.0
 
 Python 3.6
 
-LDER is an R package which can be installed using the command:
+LDER-GE is an R package which can be installed using the command:
 ```r
-devtools::install_github('shuangsong0110/LDER')
+devtools::install_github('dongzhblake/LDER-GE')
 ```
 
 ## :scroll: LD prepared
@@ -40,7 +41,7 @@ The 1000 Genome Project reference panel (hg19) can be downloaded by:
 
 
 ```r
-library(LDER)
+library(LDERGE)
 generateLD(assoc=GWAS_SUMMARY_STATISTICS (required), 
           path=OUTPUT_DIR (required),
           bfile_path=PATH_TO_LD_REFERENCE (required),
@@ -80,7 +81,7 @@ The pre-computed LD information of 276,050 UK Biobank European individuals can b
 :exclamation: NOTE: Please keep the download path the SAME with that used in function `runLDER`.
 
 
-## :rocket: Estimation of heritability and inflation factor
+## :rocket: Estimation of GE proportion
 The main funcion can be run with:
 
 ```r
@@ -159,6 +160,6 @@ res <- runLDER(assoc, n.gwas=2e4, path=path0, LD.insample=F, ethnic='eur', n.ld=
 
 ## :busts_in_silhouette: Maintainer
 
-Please contact Shuang Song (song-s19@mails.tsinghua.edu.cn) if there are any problems or questions.
+Please contact Zihan Dong (zihan.dong@yale.edu) if there are any problems or questions.
 
 
