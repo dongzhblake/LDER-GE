@@ -85,15 +85,13 @@ The pre-computed LD information of 276,050 UK Biobank European individuals can b
 The main funcion can be run with:
 
 ```r
-runLDER(assoc=GWAS_SUMMARY_STATISTICS (required), 
+runLDER_GE(assoc=GWAS_SUMMARY_STATISTICS (required), 
 	n.gwas=SAMPLE_SIZE_OF_GWAS (required), 
 	path=OUTPUT_DIR (required),
 	LD.insample=IN_SAMPLE_LD (T/F, required),
 	n.ld=SAMPLE_SIZE_OF_LD_REF (required), 
-	ethnic=ETHNIC (optional),
 	method=METHOD (default='lder')
-	cores=NUMBER_OF_CORES (optional),
-	a=INFLATION_FACTOR (optional))
+	cores=NUMBER_OF_CORES (optional))
 ```
 - GWAS_SUMMARY_STATISTICS (required): GWAS summary statistics, need to include `snp`, `chr`, `a0`, `a1`, `z` (header is necessary)
 
@@ -105,29 +103,26 @@ runLDER(assoc=GWAS_SUMMARY_STATISTICS (required),
 
 - SAMPLE_SIZE_OF_LD_REF (required): The sample size of the LD reference (e.g., 489 for 1000G)
 
-- ETHNIC (optional): Ethnic of the GWAS cohort; 'eur' for European ancestry.
-
 - METHOD (optional): Default='lder'. We also provide a choice of 'both', which outputs the results for both LDER and LDSC.
 
 - NUMBER_OF_CORES (optional): The number of cores for computation in parallel.
 
-- INFLATION_FACTOR (optional): Pre-specified inflation factor, default=NULL.
 
 
 
 ## :bulb: Output
 
-If `method='lder'`, the `runLDER` function returns a list with 4 elements:
+If `method='lder'`, the `runLDER_GE` function returns a list with 4 elements:
 
-`h2`: Estimated heritability by LDER
+`h2`: Estimated GE proportion by LDER-GE
 
-`inf`: Estimated inflation factor by LDER
+`inf`: Estimated intercept by LDER-GE
 
-`h2.se`: The standard error of estimated heritability estimated with block-jackknife.
+`h2.se`: The standard error of estimated GE proportion with block-jackknife.
 
-`inf.se`: The standard error of estimated inflation factor estimated with block-jackknife.
+`inf.se`: The standard error of estimated intercept with block-jackknife.
 
-If `method='both'`, the `runLDER` function returns a list containing the results of both LDER and LDSC.
+If `method='both'`, the `runLDER` function returns a list containing the results of both LDER-GE and LDSC-based methods.
 
 
 ## :key: A Simplified Pipeline
@@ -145,7 +140,7 @@ $ tar -xvzf 1000G_Phase3_plinkfiles.tgz
 Run with R:
 
 ```r
-devtools::install_github('shuangsong0110/LDER')
+devtools::install_github('dongzhblake/LDER-GE')
 library(LDER)
 library(data.table)
 path0 <- getwd()
@@ -153,7 +148,7 @@ assoc <- fread('gwas_sample.txt')
 for(chr in 1:22){
     generateLD(assoc, path = path0, bfile_path = paste0('./1000G_EUR_Phase3_plink/1000G.EUR.QC.', chr))
 }
-res <- runLDER(assoc, n.gwas=2e4, path=path0, LD.insample=F, ethnic='eur', n.ld=489, cores=10, method='lder', a=NULL)
+res <- runLDER_GE(assoc, n.gwas=2e4, path=path0, LD.insample=F, n.ld=489, cores=10, method='lder')
 
 ```
 
