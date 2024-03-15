@@ -1,10 +1,10 @@
-Package: LDER
+Package: LDER-GE
 Type: Package
-Title: Leveraging LD eigenvalue regression to improve the estimation of SNP heritability and confounding inflation
+Title: LDER-GE estimates phenotypic variance component of gene-environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information
 Version: 0.1.0
-Author: Shuang Song, Wei Jiang, Yiliang Zhang, Lin Hou, Hongyu Zhao.
-Maintainer: Shuang Song <song-s19@mails.tsinghua.edu.cn>
-Description: We design a method for heritability estimation, namely LD Eigenvalue Regression (LDER), which extends the LDSC method and provides more accurate estimates of heritability and confounding inflation.
+Author: Zihan Dong, Wei Jiang, Hongyu Li, Andrew DeWan, Hongyu Zhao.
+Maintainer: Zihan Dong <zihan.dong@yale.edu>
+Description: We introduce a novel statistical method Linkage-Disequilibrium Eigenvalue Regression for Gene-Environment interactions (LDER-GE). LDER-GE improves the accuracy of estimating the phenotypic variance component explained by genome-wide GE interactions using large-scale biobank association summary statistics.
 Depends: R (>= 3.3.0)
 License: GPL-3
 Encoding: UTF-8
