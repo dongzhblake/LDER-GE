@@ -1,4 +1,4 @@
-Package: LDERGE
+Package: LDER-GE
 Type: Package
 Title: LDER-GE estimates phenotypic variance component of gene-environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information
 Version: 0.1.0
