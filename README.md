@@ -141,7 +141,7 @@ Run with R:
 
 ```r
 devtools::install_github('dongzhblake/LDER-GE')
-library(LDER)
+library(LDERGE)
 library(data.table)
 path0 <- getwd()
 assoc <- fread('gwas_sample.txt')
