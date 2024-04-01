@@ -5,7 +5,7 @@ We propose a statistical method to estimate the phenotypic variance explained by
 
 Dong, Z., Jiang, W., Li, H., Dewan, A. T., & Zhao, H. (2023). LDER-GE estimates phenotypic variance component of gene-environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information. bioRxiv, 2023-11.
 
-Acknowledgement: This LDER-GE package is modified based on the original LDER package. If you are doing narrow-sense heritability study, please use and refer to https://github.com/shuangsong0110/LDER). We modified function calling procedure and adjusted the algorithm specifically for GE interaction analysis. For LD preparation, we largely maintain the original LDER framework.
+Acknowledgement: LDER-GE package is forked based on the original LDER package. If you are studying narrow-sense heritability, please use and refer to https://github.com/shuangsong0110/LDER). We modified the function calling procedure and adjusted the algorithm specifically for GE interaction analysis. For LD preparation, we largely maintain the original LDER framework.
 We thank Shuang Song for sharing the original LDER code.
 
 ## Table of contents
@@ -32,7 +32,23 @@ Users could either specify their own LD reference files with plink bfile format 
 
 :exclamation: NOTE: We suggest users use plink bfile as the input, because the different numbers of SNPs in GWAS and in the reference panel may lead to a slight difference in the LD shrinkage.
 
-### Example 1: Use plink bfile as the input (recommended)
+### Example 1: Use the pre-computed LD information
+
+The pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
+
+The pre-computed LD information for 966,766 hapmap3 and array variants from 307,259 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1UF1xP1Rg1JiFMozkFJ3bbJmFggDY8-5Y/view?usp=drive_link](https://drive.google.com/file/d/1UF1xP1Rg1JiFMozkFJ3bbJmFggDY8-5Y/view?usp=drive_link)
+
+After downloading, decompress the files:
+
+
+`tar -xf UKB396kvariant_hm3.tar.gz`
+
+`tar -xf UKB966kvariant_hm3array.tar.gz`
+
+:exclamation: NOTE: Please keep the download path the SAME with that used in function `runLDER_GE`.
+
+
+### Example 2: Use plink bfile as the input
 The 1000 Genome Project reference panel (hg19) can be downloaded by:
 
 `wget https://zenodo.org/record/7768714/files/1000G_Phase3_plinkfiles.tgz?download=1`
@@ -65,20 +81,6 @@ generateLD(assoc=GWAS_SUMMARY_STATISTICS (required),
 - PATH_TO_PYTHON_SOFTWARE (optional): The path to the python software. If not specified, the function will use the default path (system("which python"))
 
 Note: The function will automatically download and install plinkLD functions. If it does not work, the packages can also be downloaded with `wget -O plinkLD.zip https://cloud.tsinghua.edu.cn/f/7c002e9b9539450182ef/?dl=1 --no-check-certificate` 
-
-### Example 2: Use the pre-computed LD information
-
-The pre-computed LD information of 276,050 UK Biobank European individuals can be downloaded by
-
-`wget -O LD.shrink.zip https://cloud.tsinghua.edu.cn/f/abf1020acb9c435eaa13/?dl=1 --no-check-certificate`
-
-`wget -O LD.zip https://cloud.tsinghua.edu.cn/f/d93a4a7013fe461aa9fc/?dl=1 --no-check-certificate`
-
-`unzip LD.shrink.zip`
-
-`unzip LD.zip`
-
-:exclamation: NOTE: Please keep the download path the SAME with that used in function `runLDER`.
 
 
 ## :rocket: Estimation of GE proportion
@@ -126,15 +128,13 @@ If `method='both'`, the `runLDER` function returns a list containing the results
 
 
 ## :key: A Simplified Pipeline
-Download a sample GWAS summary statistics:
+Download a sample GWIS summary statistics manually at https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link
 
-$ wget -O gwas_sample.txt https://cloud.tsinghua.edu.cn/f/828ab71c87d84dd28d47/?dl=1 --no-check-certificate
 
-Download 1000G LD reference:
+Download the pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
 
-$ wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_plinkfiles.tgz
 
-$ tar -xvzf 1000G_Phase3_plinkfiles.tgz
+`tar -xf UKB396kvariant_hm3.tar.gz`
 
 
 Run with R:
@@ -143,12 +143,9 @@ Run with R:
 devtools::install_github('dongzhblake/LDER-GE')
 library(LDERGE)
 library(data.table)
-path0 <- getwd()
-assoc <- fread('gwas_sample.txt')
-for(chr in 1:22){
-    generateLD(assoc, path = path0, bfile_path = paste0('./1000G_EUR_Phase3_plink/1000G.EUR.QC.', chr))
-}
-res <- runLDER_GE(assoc, n.gwas=2e4, path=path0, LD.insample=F, n.ld=489, cores=10, method='lder')
+path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
+assoc <- fread('LDERGE_example_gwas.txt')
+res <- runLDER_GE(assoc, n.gwas=2000, path=path0, LD.insample=F, n.ld=276050, cores=10, method='lder')
 
 ```
 
