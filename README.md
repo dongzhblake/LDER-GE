@@ -128,7 +128,7 @@ If `method='both'`, the `runLDER` function returns a list containing the results
 
 
 ## :key: A Simplified Pipeline
-Download a sample GWIS summary statistics manually at https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link
+Download a sample GWIS summary statistics manually at [https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link](https://drive.google.com/file/d/1LSkzmfZo36WtiIpXBu0Cfw8iA4VwDss7/view?usp=sharing)
 
 
 Download the pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
