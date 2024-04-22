@@ -145,7 +145,7 @@ library(LDERGE)
 library(data.table)
 path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
 assoc <- fread('LDER_GE_exampleGWIS.txt')
-res <- runLDER_GE(assoc, n.gwas=2000, path=path0, LD.insample=T, n.ld=276050, cores=10, method='lder')
+res <- runLDER_GE(assoc, n.gwas=50000, path=path0, LD.insample=T, n.ld=276050, cores=10, method='lder')
 
 ```
 
