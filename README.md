@@ -131,7 +131,7 @@ If `method='both'`, the `runLDER` function returns a list containing the results
 Download a sample GWIS summary statistics manually at https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link
 
 
-Download the pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
+Download the pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
 
 
 `tar -xf UKB396kvariant_hm3.tar.gz`
@@ -145,7 +145,7 @@ library(LDERGE)
 library(data.table)
 path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
 assoc <- fread('LDERGE_example_gwas.txt')
-res <- runLDER_GE(assoc, n.gwas=2000, path=path0, LD.insample=F, n.ld=276050, cores=10, method='lder')
+res <- runLDER_GE(assoc, n.gwas=2000, path=path0, LD.insample=T, n.ld=276050, cores=10, method='lder')
 
 ```
 
