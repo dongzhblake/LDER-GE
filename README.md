@@ -145,7 +145,18 @@ library(LDERGE)
 library(data.table)
 path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
 assoc <- fread('LDER_GE_exampleGWIS.txt')
-res <- runLDER_GE(assoc, n.gwas=50000, path=path0, LD.insample=T, n.ld=276050, cores=10, method='lder')
+# The whole process of runLDER_GE is going to take a few minutes depending on the number of cores of the computer.
+# If a higher number of cores are available, the parallel input of summary statistis will be faster.
+res <- runLDER_GE(assoc, n.gwas=50000, path=path0, n.ld=276050, cores=10, method='lder')
+The true simulation GE proportion is 0.05 generated using 50000 UKBB subjects and 20000 effective variants.
+> res$h2
+[1] 0.05185057
+> res$h2.sd
+[1] 0.007197872
+# calculate P values for the test
+> P = pchisq((res$h2/res$h2.sd)^2, df=1, lower.tail = F)
+> P
+[1] 5.864458e-13
 
 ```
 
