@@ -7,8 +7,8 @@
 #' @param n.ld The sample size of the LD reference
 #' @param cores The number of cores for computation in parallel
 #' @param method 'lder', 'ldsc', or 'both'
-#' @param a Pre-specified inflation factor, default=NULL
 #' @param size_num Number of blocks for jackknife
+#' @param type if 'jack' then conducts delete-wise block jackknife. if 'none' then does not do inference 
 #' @import  data.table stats utils
 #' @export
 #'
@@ -34,6 +34,3 @@ runLDER_GE <- function(assoc, n.gwas, path, LD.insample=T,  n.ld,method='lder', 
     return(list(lder=res1,ldsc=res2))
   }
 }
-
-#runLDER_GE(assoc, n.gwas, path, LD.insample=T, n.ld,method='lder', cores=10, a=NULL, twostage=F, type='jack',size_num=200)
-
