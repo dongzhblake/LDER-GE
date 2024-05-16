@@ -6,7 +6,7 @@
 #' @param LD.insample T/F, whether the LD reference is estimated with the GWAS cohort (T) or external reference panel (e.g. 1000 Genome Project) (F)
 #' @param n.ld The sample size of the LD reference
 #' @param cores The number of cores for computation in parallel
-#' @param method 'lder_ge', 'ldsc', or 'both'
+#' @param method 'lder', 'ldsc', or 'both'
 #' @param a Pre-specified inflation factor, default=NULL
 #' @param size_num Number of blocks for jackknife
 #' @import  data.table stats utils
