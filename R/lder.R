@@ -15,7 +15,7 @@ lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',siz
   }
   res <- get.res(x1,lam1,n.gwas=n.gwas,a=a,rough=rough,twostage=twostage)
   if(type=='none'){
-    return(list(h2=res$h2,inf=res$a*n.gwas+1 ))
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1 ))
   }
   
   mj=sapply(1:length(stats),FUN=function(x)(length(stats[[x]]$ldsc)))
@@ -67,11 +67,11 @@ lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',siz
     print("delete-block-jackknife done")
     close(pb)
     hh2 <-  unlist(sapply(temp1.jack,'[[','h2'))
-    inff2 <- unlist(sapply(temp1.jack,'[[','a'))
+    inteceptf2 <- unlist(sapply(temp1.jack,'[[','a'))
     n.block <- length(grouped_block)
     h33.jack <- sd(hh2)*sqrt(n.block)*length(x1)
-    a33.jack <- sd(inff2)*sqrt(n.block)
-    return(list(h2=res$h2,inf=res$a*n.gwas+1,h2.sd=h33.jack,inf.sd=a33.jack*n.gwas))
+    a33.jack <- sd(inteceptf2)*sqrt(n.block)
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.sd=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.sd=a33.jack*n.gwas))
   }
 }
 
@@ -92,7 +92,7 @@ ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=10
   }
   res <- get.res.ldsc(z1,ldsc1,n.gwas=n.gwas,a=a,twostage=twostage)
   if(type=='none'){
-    return(list(h2=res$h2,inf=res$a*n.gwas+1))
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1))
   }
   
   mj=sapply(1:length(stats),FUN=function(x)(length(stats[[x]]$ldsc)))
@@ -145,11 +145,11 @@ ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=10
     print("delete-block-jackknife done")
     close(pb)
     hh2 <-  unlist(sapply(temp1.jack,'[[','h2'))
-    inff2 <- unlist(sapply(temp1.jack,'[[','a'))
+    inteceptf2 <- unlist(sapply(temp1.jack,'[[','a'))
     n.block <- length(grouped_block)
     h33.jack <- sd(hh2)*sqrt(n.block)*length(z1)
-    a33.jack <- sd(inff2)*sqrt(n.block)
-    return(list(h2=res$h2,inf=res$a*n.gwas+1,h2.sd=h33.jack,inf.sd=a33.jack*n.gwas))
+    a33.jack <- sd(inteceptf2)*sqrt(n.block)
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.sd=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.sd=a33.jack*n.gwas))
   }
 }
 
