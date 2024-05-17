@@ -1,5 +1,5 @@
 
-lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=100){
+lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=200){
   library(parallel)
   temp <- unlist(lapply(stats,length))
   stats[temp==1] <- NULL
