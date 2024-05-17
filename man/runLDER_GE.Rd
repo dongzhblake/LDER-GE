@@ -6,7 +6,7 @@
 \usage{
 runLDER_GE(
   assoc,
-  n.gwas,
+  n.gwis,
   path,
   LD.insample = T,
   n.ld,
@@ -19,11 +19,11 @@ runLDER_GE(
 \arguments{
 \item{assoc}{GWIS summary statistics, need to include snp, chr, a0, a1, z (header is necessary)}
 
-\item{n.gwas}{The sample size of the GWAS summary statistics}
+\item{n.gwis}{The sample size of the GWIS summary statistics}
 
 \item{path}{The path of LD panel directory}
 
-\item{LD.insample}{T/F, whether the LD reference is estimated with the GWAS cohort (T) or external reference panel (e.g. 1000 Genome Project) (F)}
+\item{LD.insample}{T/F, whether the LD reference is estimated with the GWIS cohort (T) or external reference panel (e.g. 1000 Genome Project) (F)}
 
 \item{n.ld}{The sample size of the LD reference}
 
