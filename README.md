@@ -9,41 +9,31 @@ Acknowledgement: LDER-GE package is forked based on the original LDER package. I
 We thank Shuang Song for sharing the original LDER code.
 
 ## Table of contents
-* [Install](#hammer-install)
-* [LD prepared](#scroll-ld-prepared)
+* [Install and LD preparation](#hammer-install-and-ld-preparation)
 * [Estimation of GE proportion](#rocket-estimation-of-ge-proportion)
 * [Output](#bulb-output)
 * [A Simplified Pipeline](#key-a-simplified-pipeline)
 
-## :hammer: Install
-R >= 3.0.0
-
-Python 3.6
-
-LDER-GE is an R package which can be installed using the command:
+## :hammer: Install and LD preparation
+LDER-GE R package requires R >= 3.5.0 and Python 3.6.
+LDER-GE can be installed using the command:
 ```r
 devtools::install_github('dongzhblake/LDER-GE')
 ```
 
-## :scroll: LD prepared
-We provide a function `plinkLD.py` for efficient LD information extraction and shrinkage based on Python. 
-Users could either specify their own LD reference files with plink bfile format (.bim, .fam, .bed), or use the pre-computed LD information. We provide two examples here.
-
-
-:exclamation: NOTE: We suggest users use plink bfile as the input, because the different numbers of SNPs in GWAS and in the reference panel may lead to a slight difference in the LD shrinkage.
+We provide a function `plinkLD.py` for efficient LD information extraction and shrinkage based on Python. Users could either specify their own LD reference files with plink bfile format (.bim, .fam, .bed), or use the pre-computed LD information. When studying UKBB or any Biobank-scale dataset, we suggest use in-sample LD panel for better estimatuon results. Two examples are given below.
 
 ### Example 1: Use the pre-computed LD information
 
-The pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
+The pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1CCGil-ZnXourrk5JFJeqyEKIzLCvX2vh/view?usp=drive_link)
 
-The pre-computed LD information for 966,766 hapmap3 and array variants from 307,259 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1UF1xP1Rg1JiFMozkFJ3bbJmFggDY8-5Y/view?usp=drive_link](https://drive.google.com/file/d/1UF1xP1Rg1JiFMozkFJ3bbJmFggDY8-5Y/view?usp=drive_link)
+The pre-computed LD information for 966,766 hapmap3 and array variants from 307,259 UK Biobank European individuals can be manually downloaded from [https://drive.google.com/file/d/1UF1xP1Rg1JiFMozkFJ3bbJmFggDY8-5Y/view?usp=drive_link](https://drive.google.com/file/d/1FgikyxYd_jW05aLuHgj0yChW9i2ZgtT9/view?usp=sharing)
 
 After downloading, decompress the files:
 
+`unzip UKB396kvariant_hm3.zip`
 
-`tar -xf UKB396kvariant_hm3.tar.gz`
-
-`tar -xf UKB966kvariant_hm3array.tar.gz`
+`unzip UKB966kvariant_hm3.zip`
 
 :exclamation: NOTE: Please keep the download path the SAME with that used in function `runLDER_GE`.
 
@@ -103,7 +93,7 @@ runLDER_GE(assoc=GWAS_SUMMARY_STATISTICS (required),
 
 - IN_SAMPLE_LD (required): T/F, whether the LD reference is estimated with the GWAS cohort (T) or external reference panel (e.g. 1000 Genome Project: F)
 
-- SAMPLE_SIZE_OF_LD_REF (required): The sample size of the LD reference (e.g., 489 for 1000G)
+- SAMPLE_SIZE_OF_LD_REF (required): The sample size of the LD reference (e.g., 276,050 for 396K UKBB variants; 307,259 for 966K UKBB variants, 489 for 1000G)
 
 - METHOD (optional): Default='lder'. We also provide a choice of 'both', which outputs the results for both LDER and LDSC.
 
@@ -130,13 +120,13 @@ If `method='both'`, the `runLDER` function returns a list containing the results
 
 
 ## :key: A Simplified Pipeline
-Download a sample GWIS summary statistics manually at [https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link](https://drive.google.com/file/d/1LSkzmfZo36WtiIpXBu0Cfw8iA4VwDss7/view?usp=sharing)
+Download a sample GWIS summary statistics at [https://drive.google.com/file/d/1W1zaoOS3ob0dzSvJL9p2f4kdKUmgW5Ff/view?usp=drive_link](https://drive.google.com/file/d/1LSkzmfZo36WtiIpXBu0Cfw8iA4VwDss7/view?usp=sharing)
 
 
 Download the pre-computed LD information for 396,330 hapmap3 variants from 276,050 UK Biobank European individuals from [https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link](https://drive.google.com/file/d/1mvDA79qPAoPXUjmUC1BQw-tInklZ4gPD/view?usp=drive_link)
 
 
-`tar -xf UKB396kvariant_hm3.tar.gz`
+`unzip UKB396kvariant_hm3.zip`
 
 
 Run with R:
@@ -145,7 +135,7 @@ Run with R:
 devtools::install_github('dongzhblake/LDER-GE')
 library(LDERGE)
 library(data.table)
-path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
+path0 <- "UKB396kvariant_hm3" # the complete system path to this LD folder
 assoc <- fread('LDER_GE_exampleGWIS.txt')
 # The whole process of runLDER_GE is going to take a few minutes depending on the number of cores of the computer.
 # If a higher number of cores are available, the parallel input of summary statistis will be faster.
