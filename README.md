@@ -139,7 +139,7 @@ path0 <- "UKB396kvariant_hm3" # the complete system path to this LD folder
 assoc <- fread('LDER_GE_exampleGWIS.txt')
 # The whole process of runLDER_GE is going to take a few minutes depending on the number of cores of the computer.
 # If a higher number of cores are available, the parallel input of summary statistis will be faster.
-res <- runLDER_GE(assoc, n.gwas=median(assoc$n), path=path0, n.ld=276050, cores=10, method='lder')
+res <- runLDER_GE(assoc, n.gwis=median(assoc$n), path=path0, n.ld=276050, cores=10, method='lder')
 The true simulation GE proportion is 0.05 generated using 50000 UKBB subjects and 20000 effective variants.
 > res
 $h2I
