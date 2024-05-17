@@ -1,5 +1,5 @@
 
-lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=200){
+lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=100){
   library(parallel)
   temp <- unlist(lapply(stats,length))
   stats[temp==1] <- NULL
@@ -71,7 +71,7 @@ lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',siz
     n.block <- length(grouped_block)
     h33.jack <- sd(hh2)*sqrt(n.block)*length(x1)
     a33.jack <- sd(inteceptf2)*sqrt(n.block)
-    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.sd=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.sd=a33.jack*n.gwas))
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.se=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.se=a33.jack*n.gwas))
   }
 }
 
@@ -149,7 +149,7 @@ ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=10
     n.block <- length(grouped_block)
     h33.jack <- sd(hh2)*sqrt(n.block)*length(z1)
     a33.jack <- sd(inteceptf2)*sqrt(n.block)
-    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.sd=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.sd=a33.jack*n.gwas))
+    return(list(h2I=res$h2,intecept=res$a*n.gwas+1,h2I.se=h33.jack,h2I_p=pchisq((res$h2/h33.jack)^2,df=1,lower.tail = F),intecept.se=a33.jack*n.gwas))
   }
 }
 
