@@ -114,15 +114,17 @@ runLDER_GE(assoc=GWAS_SUMMARY_STATISTICS (required),
 
 ## :bulb: Output
 
-If `method='lder'`, the `runLDER_GE` function returns a list with 4 elements:
+If `method='lder'`, the `runLDER_GE` function returns a list with 5 elements:
 
-`h2`: Estimated GE proportion by LDER-GE
+`h2I`: Estimated GE proportion by LDER-GE
 
-`inf`: Estimated intercept by LDER-GE
+`h2I.se`: The standard error of estimated GE proportion with block-jackknife.
 
-`h2.se`: The standard error of estimated GE proportion with block-jackknife.
+`h2I.p`: The P value for testing the estimated GE proportion.
 
-`inf.se`: The standard error of estimated intercept with block-jackknife.
+`intecept`: Estimated intercept by LDER-GE
+
+`intecept.se`: The standard error of estimated intercept with block-jackknife.
 
 If `method='both'`, the `runLDER` function returns a list containing the results of both LDER-GE and LDSC-based methods.
 
@@ -147,16 +149,23 @@ path0 <- "UKB396kvariant_hm3" # or the complete system path to this LD folder
 assoc <- fread('LDER_GE_exampleGWIS.txt')
 # The whole process of runLDER_GE is going to take a few minutes depending on the number of cores of the computer.
 # If a higher number of cores are available, the parallel input of summary statistis will be faster.
-res <- runLDER_GE(assoc, n.gwas=50000, path=path0, n.ld=276050, cores=10, method='lder')
+res <- runLDER_GE(assoc, n.gwas=median(assoc$n), path=path0, n.ld=276050, cores=10, method='lder')
 The true simulation GE proportion is 0.05 generated using 50000 UKBB subjects and 20000 effective variants.
-> res$h2
-[1] 0.05185057
-> res$h2.sd
-[1] 0.007197872
-# calculate P values for the test
-> P = pchisq((res$h2/res$h2.sd)^2, df=1, lower.tail = F)
-> P
-[1] 5.864458e-13
+> res
+$h2I
+[1] 0.0519347
+
+$intecept
+[1] 1.143381
+
+$h2I.se
+[1] 0.007510239
+
+$h2I.p
+[1] 4.672499e-12
+
+$intecept.se
+[1] 0.005513937
 
 ```
 
