@@ -140,22 +140,14 @@ assoc <- fread('LDER_GE_exampleGWIS.txt')
 # The whole process of runLDER_GE is going to take a few minutes depending on the number of cores of the computer.
 # If a higher number of cores are available, the parallel input of summary statistis will be faster.
 res <- runLDER_GE(assoc, n.gwis=median(assoc$n), path=path0, n.ld=276050, cores=10, method='lder')
-The true simulation GE proportion is 0.05 generated using 50000 UKBB subjects and 20000 effective variants.
-> res
-$h2I
-[1] 0.0519347
 
-$intecept
-[1] 1.143381
-
-$h2I.se
-[1] 0.007510239
-
-$h2I.p
-[1] 4.672499e-12
-
-$intecept.se
-[1] 0.005513937
+> unlist(res)
+        lder.h2I    lder.intecept      lder.h2I.se       lder.h2I.p 
+    5.193470e-02     1.143381e+00     7.510239e-03     4.672499e-12 
+lder.intecept.se         ldsc.h2I    ldsc.intecept      ldsc.h2I.se 
+    5.513937e-03     5.558019e-02     1.137570e+00     9.309304e-03 
+      ldsc.h2I.p ldsc.intecept.se 
+    2.366851e-09     9.410519e-03 
 
 ```
 
