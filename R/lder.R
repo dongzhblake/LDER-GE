@@ -1,5 +1,5 @@
 
-lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=100){
+lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',size_num=200){
   library(parallel)
   temp <- unlist(lapply(stats,length))
   stats[temp==1] <- NULL
@@ -20,7 +20,7 @@ lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',siz
   
   mj=sapply(1:length(stats),FUN=function(x)(length(stats[[x]]$ldsc)))
   sizedf=as.data.frame(cbind(mj,1:length(stats)))
-  define_block_unit <- function(size_num=100){
+  define_block_unit <- function(size_num=200){
     sizes_perb=c()
     for(b in seq(0.5,2.5,by=0.01)){
       target_size=sum(mj)/size_num/b
@@ -76,7 +76,7 @@ lder <- function(stats,n.gwas,a=NULL,rough=F,cores=20,twostage=T,type='jack',siz
 }
 
 
-ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=100){
+ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=200){
   library(parallel)
   temp <- unlist(lapply(stats,length))
   stats[temp==1] <- NULL
@@ -97,7 +97,7 @@ ldsc <- function(stats,n.gwas,a=NULL,cores=20,twostage=T,type='jack',size_num=10
   
   mj=sapply(1:length(stats),FUN=function(x)(length(stats[[x]]$ldsc)))
   sizedf=as.data.frame(cbind(mj,1:length(stats)))
-  define_block_unit <- function(size_num=100){
+  define_block_unit <- function(size_num=200){
     sizes_perb=c()
     for(b in seq(0.5,2.5,by=0.01)){
       target_size=sum(mj)/size_num/b
