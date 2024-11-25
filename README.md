@@ -3,7 +3,7 @@ We propose a statistical method to estimate the phenotypic variance explained by
 
 :open_book: Citation:
 
-Dong, Z., Jiang, W., Li, H., Dewan, A. T., & Zhao, H. (2023). LDER-GE estimates phenotypic variance component of gene-environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information. bioRxiv, 2023-11.
+Zihan Dong, Wei Jiang, Hongyu Li, Andrew T DeWan, Hongyu Zhao, LDER-GE estimates phenotypic variance component of gene–environment interactions in human complex traits accurately with GE interaction summary statistics and full LD information, Briefings in Bioinformatics, Volume 25, Issue 4, July 2024, bbae335, https://doi.org/10.1093/bib/bbae335
 
 Acknowledgement: LDER-GE package is forked based on the original LDER package. If you are studying narrow-sense heritability, please use and refer to https://github.com/shuangsong0110/LDER). We modified the function calling procedure and adjusted the algorithm specifically for GE interaction analysis. For LD preparation, we largely maintain the original LDER framework.
 We thank Shuang Song for sharing the original LDER code.
